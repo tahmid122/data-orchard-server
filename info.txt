@@ -1,0 +1,18 @@
+{
+    "email": "tahmid@gmail.com",
+    "password":"tahmid1234",
+    "name": "Tahmid_Alam",
+    "userName": "Tahmid8126",
+    "profileImage": "tahmid.jpg",
+    "facebookLink": "http://www.facebook.com/TahmidAlamJG",
+    "phone": "+880 1318195591",
+    "bank": {
+        "bankName": "DBBL",
+        "branchName": "Rangpur FT",
+        "accountHolderName": "Tahmid Alam",
+        "accountNumber": 167289897312
+    },
+    "cv": "tahmidCV.pdf",
+    "about":"Hey there. I am Tahmid Alam. MERN Stack Developer"
+
+}
