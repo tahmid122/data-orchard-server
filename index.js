@@ -444,7 +444,7 @@ app.post(
     .trim()
     .notEmpty()
     .withMessage("userName is required")
-    .isLength({ min: 8, max: 8 })
+    .isLength({ min: 8, max: 16 })
     .withMessage("userName must be 8 charecters"),
   body("phone")
     .trim()
@@ -471,26 +471,35 @@ app.post(
   },
   async (req, res) => {
     try {
-      const newUser = await new Users({
-        id: uuidv4(),
-        email: req.body.email,
-        password: req.body.password,
-        name: req.body.name,
-        userName: req.body.userName,
-        facebookLink: req.body.facebookLink,
-        phone: req.body.phone,
-        salary: 0,
-        pending: 0,
-        fullPay: false,
-        bank: req.body.bank,
-        task: req.body.task,
-        about: req.body.about,
-      });
-      const user = await newUser.save();
-      if (newUser) {
-        res.status(201).send(user);
+      const checkUser = await Users.find({ email: req.body.email });
+      if (checkUser) {
+        res
+          .status(201)
+          .send({
+            msg: "Already exist this email.Please Login or use another email",
+          });
       } else {
-        res.status(402).send("User registration failed");
+        const newUser = await new Users({
+          id: uuidv4(),
+          email: req.body.email,
+          password: req.body.password,
+          name: req.body.name,
+          userName: req.body.userName,
+          facebookLink: req.body.facebookLink,
+          phone: req.body.phone,
+          salary: 0,
+          pending: 0,
+          fullPay: false,
+          bank: req.body.bank,
+          task: req.body.task,
+          about: req.body.about,
+        });
+        const user = await newUser.save();
+        if (newUser) {
+          res.status(201).send(user);
+        } else {
+          res.status(402).send("User registration failed");
+        }
       }
     } catch (error) {
       res.status(400).send(error.message);
